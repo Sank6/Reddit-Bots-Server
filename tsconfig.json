@@ -1,0 +1,14 @@
+{
+    "ts-node": {
+        "files": true
+    },
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "outDir": "out",
+        "sourceMap": true,
+        "skipLibCheck": true
+    }
+}
