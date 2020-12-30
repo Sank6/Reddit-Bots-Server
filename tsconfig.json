@@ -9,6 +9,10 @@
         "resolveJsonModule": true,
         "outDir": "out",
         "sourceMap": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "baseUrl": "./src",
+        "paths": {
+            "@models/*": ["models/*"]
+        }
     }
 }

@@ -1,7 +1,14 @@
 import { Router } from "express";
 
-const router: Router = Router();
+import Bot from '@models/bot';
+
+const route: Router = Router();
 
 // Routes here
 
-export default router;
+route.get("/list", async (_, res) => {
+    let bots = await Bot.find({})
+    res.json(bots)
+})
+
+export default route;
