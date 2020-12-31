@@ -58,6 +58,10 @@ export default function finder() {
     // If the message claims to be a bot
     if (body.includes("i am a bot") || body.includes("i'm a bot")) points += 30;
 
+    
+    // If the message claims to not be a bot
+    if (body.includes("not a bot") || body.includes("not automated")) points -= 60;
+
     // If the body includes a report feature
     if (body.includes("[report")) points += 20;
 
