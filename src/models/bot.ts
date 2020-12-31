@@ -3,8 +3,11 @@ import { Document } from 'mongoose';
 
 export interface IBot extends Document {
     username: string;
+    description: string;
+    avatar: string;
+    cakeDay: Date;
     dateAdded: Date;
-    score: number;
+    likes: number;
 }
 
 const ServerSchema = new mongoose.Schema({
@@ -13,12 +16,24 @@ const ServerSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    description: {
+        type: String,
+        default: ""
+    },
+    avatar: {
+        type: String,
+        required: true,
+    },
+    cakeDay: {
+        type: Date,
+        required: true
+    },
     dateAdded: {
         type: Date,
         default: Date.now(),
         required: true
     },
-    score: {
+    likes: {
         type: Number,
         default: 0,
         required: true

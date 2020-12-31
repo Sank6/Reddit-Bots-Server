@@ -1,5 +1,7 @@
 {
     "reddit": {
+        "username": "",
+        "password": "",
         "clientId": "",
         "clientSecret": ""
     },

@@ -12,7 +12,9 @@
         "skipLibCheck": true,
         "baseUrl": "./src",
         "paths": {
-            "@models/*": ["models/*"]
-        }
+            "@models/*": ["models/*"],
+            "@tools/*": ["tools/*"]
+        },
+        "esModuleInterop": true
     }
 }

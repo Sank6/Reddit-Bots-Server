@@ -1,8 +1,7 @@
-import * as ora from 'ora';
-import * as express from "express";
-import { Express } from "express";
-import * as session from "express-session";
-import * as passport from "passport";
+import ora from 'ora';
+import express, { Express } from "express";
+import session from "express-session";
+import passport from "passport";
 
 import * as config from "../config.json";
 
