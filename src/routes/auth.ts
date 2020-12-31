@@ -52,11 +52,11 @@ route.get("/auth/login", (req, res, next) => {
 route.get("/auth/callback", (req, res, next) => {
   if (req.query.state == req.session["state"]) {
     passport.authenticate("reddit", {
-      successRedirect: "/",
+      successRedirect: config.nuxt.baseURL,
       failureRedirect: "/login",
     })(req, res, next);
   } else {
-    res.status(403).send();
+    res.status(403).json({error: "Invalid state"});
   }
 });
 
