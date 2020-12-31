@@ -17,7 +17,7 @@ route.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      domain: `.${config.nuxt.baseURL.split("://")[1]}`,
+      domain: `${config.nuxt.baseURL.split("://")[1]}`,
     },
     name: "reddit.connect.sid",
   })
@@ -39,7 +39,6 @@ passport.use(
       profile: Object,
       done: Function
     ) => {
-      console.log(profile)
       done(null, profile);
     }
   )
