@@ -39,6 +39,7 @@ passport.use(
       profile: Object,
       done: Function
     ) => {
+      console.log(profile)
       done(null, profile);
     }
   )
@@ -59,10 +60,14 @@ route.get("/auth/login", (req, res, next) => {
 });
 
 route.get("/auth/callback", (req, res, next) => {
-  passport.authenticate("reddit", {
-    successRedirect: config.nuxt.baseURL,
-    failureRedirect: "/login",
-  })(req, res, next);
+  if (req.query.state == req.session["state"]) {
+    passport.authenticate("reddit", {
+      successRedirect: config.nuxt.baseURL,
+      failureRedirect: "/login",
+    })(req, res, next);
+  } else {
+    res.status(403).json({ error: "Invalid state" });
+  }
 });
 
 route.get("/auth/info", cors, (req, res) => {
