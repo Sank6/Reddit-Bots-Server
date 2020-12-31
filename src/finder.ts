@@ -139,7 +139,7 @@ export default function finder() {
   });
 
   setInterval(() => {
-    ora(`Added ${cache.length} users: ${cache.map(u => u.username).join(", ")}`).info();
+    if(cache.length > 0) ora(`Added ${cache.length} users: ${cache.map(u => u.username).join(", ")}`).info();
     Bot.insertMany(cache).catch(e => ora(e.message).fail());
     cache = [];
   }, 1000 * 30);
