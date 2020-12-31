@@ -13,7 +13,7 @@
         "cookieDomain": "localhost"
     },
     "nuxt": {
-        "baseURL": "http://localhost:3001",
+        "base_url": "http://localhost:3001",
         "port": 3001
     }
 }
