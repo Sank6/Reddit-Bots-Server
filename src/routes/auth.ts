@@ -1,6 +1,5 @@
 import { Router } from "express";
 
-import session from "express-session";
 import crypto from "crypto";
 import passport, { use } from "passport";
 import { Strategy } from "passport-reddit";
@@ -10,22 +9,6 @@ import cors from "@middleware/cors";
 import * as config from "../../config.json";
 
 const route: Router = Router();
-
-route.use(
-  session({
-    secret: config.server.secret,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      domain: `${config.nuxt.baseURL.split("://")[1]}`,
-      secure: true
-    },
-    name: "reddit.connect.sid",
-  })
-);
-
-route.use(passport.initialize());
-route.use(passport.session());
 
 passport.use(
   new Strategy(
