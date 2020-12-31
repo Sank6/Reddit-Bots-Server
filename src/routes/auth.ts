@@ -16,6 +16,10 @@ route.use(
     secret: config.server.secret,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      domain: `.${config.nuxt.baseURL.split("://")[1]}`
+    },
+    name: "reddit.connect.sid"
   })
 );
 
