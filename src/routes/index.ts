@@ -11,11 +11,13 @@ route.get("/", (_, res) => {
     res.status(200).send()
 })
 
-route.get("/list", cors, async (_, res) => {
+route.get("/list", cors, async (req, res) => {
+    let page = parseInt(req.query.page as string) || 0;
     let bots = await Bot.aggregate([
         { $sort: { score: 1 } },
         { $limit: 50 },
-        { $project: { _id: false, __v: false } }
+        { $project: { _id: false, __v: false } },
+        { $skip: page * 50}
     ]);
     res.json(bots);
 });
