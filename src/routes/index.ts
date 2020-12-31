@@ -15,9 +15,9 @@ route.get("/list", cors, async (req, res) => {
     let page = parseInt(req.query.page as string) || 0;
     let bots = await Bot.aggregate([
         { $sort: { score: 1 } },
+        { $skip: page * 50 },
         { $limit: 50 },
-        { $project: { _id: false, __v: false } },
-        { $skip: page * 50}
+        { $project: { _id: false, __v: false } }
     ]);
     res.json(bots);
 });
