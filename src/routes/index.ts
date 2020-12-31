@@ -7,7 +7,7 @@ import Bot from '@models/bot';
 const route: Router = Router();
 
 route.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", config.nuxt.baseURL);
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Credentials", "true");
     next();
 });
