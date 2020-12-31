@@ -45,7 +45,7 @@ route.get("/auth/login", (req, res, next) => {
 route.get("/auth/callback", (req, res, next) => {
   if (req.query.state == req.session["state"]) {
     passport.authenticate("reddit", {
-      successRedirect: config.nuxt.baseURL,
+      successRedirect: config.nuxt.base_url,
       failureRedirect: "/login",
     })(req, res, next);
   } else {
