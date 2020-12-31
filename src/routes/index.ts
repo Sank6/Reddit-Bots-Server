@@ -1,18 +1,17 @@
 import { Router } from "express";
 
-import * as config from "../../config.json";
-
 import Bot from '@models/bot';
+import cors from '@middleware/cors';
+
+import auth from './auth';
 
 const route: Router = Router();
 
-route.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", "true");
-    next();
-});
+route.get("/", (_, res) => {
+    res.status(200).send()
+})
 
-route.get("/list", async (_, res) => {
+route.get("/list", cors, async (_, res) => {
     let bots = await Bot.aggregate([
         { $sort: { score: 1 } },
         { $limit: 50 },
@@ -20,5 +19,7 @@ route.get("/list", async (_, res) => {
     ]);
     res.json(bots);
 });
+
+route.use(auth)
 
 export default route;

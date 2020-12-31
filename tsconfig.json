@@ -13,6 +13,8 @@
         "baseUrl": "./src",
         "paths": {
             "@models/*": ["models/*"],
+            "@middleware/*": ["middleware/*"],
+            "@routes/*": ["routes/*"],
             "@tools/*": ["tools/*"]
         },
         "esModuleInterop": true
