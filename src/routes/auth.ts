@@ -17,9 +17,9 @@ route.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      domain: `.${config.nuxt.baseURL.split("://")[1]}`
+      domain: `.${config.nuxt.baseURL.split("://")[1]}`,
     },
-    name: "reddit.connect.sid"
+    name: "reddit.connect.sid",
   })
 );
 
@@ -33,7 +33,12 @@ passport.use(
       clientSecret: config.reddit.clientSecret,
       callbackURL: `${config.server.base_url}/auth/callback`,
     },
-    (_accessToken: any, _refreshToken: any, profile: Object, done: Function) => {
+    (
+      _accessToken: any,
+      _refreshToken: any,
+      profile: Object,
+      done: Function
+    ) => {
       done(null, profile);
     }
   )
@@ -48,34 +53,33 @@ passport.deserializeUser((obj, done) => {
 
 route.get("/auth/login", (req, res, next) => {
   req.session["state"] = crypto.randomBytes(32).toString("hex");
-  passport.authenticate('reddit', {
-      state: req.session["state"]
-  })(req, res, next)
+  passport.authenticate("reddit", {
+    state: req.session["state"],
+  })(req, res, next);
 });
 
 route.get("/auth/callback", (req, res, next) => {
-  if (req.query.state == req.session["state"]) {
-    passport.authenticate("reddit", {
-      successRedirect: config.nuxt.baseURL,
-      failureRedirect: "/login",
-    })(req, res, next);
-  } else {
-    res.status(403).json({error: "Invalid state"});
-  }
+  passport.authenticate("reddit", {
+    successRedirect: config.nuxt.baseURL,
+    failureRedirect: "/login",
+  })(req, res, next);
 });
 
 route.get("/auth/info", cors, (req, res) => {
-    let user: any = req.user;
-    if (req.isAuthenticated()) {
-        res.json({success: true, user: {
-            username: user.name,
-            avatar: user._json.subreddit.icon_img,
-            karma: user._json.total_karma,
-            created: new Date(user._json.created_utc * 1000)
-        }})
-    } else {
-        res.json({success: false, error: "Not authenticated"})
-    }
-})
+  let user: any = req.user;
+  if (req.isAuthenticated()) {
+    res.json({
+      success: true,
+      user: {
+        username: user.name,
+        avatar: user._json.subreddit.icon_img,
+        karma: user._json.total_karma,
+        created: new Date(user._json.created_utc * 1000),
+      },
+    });
+  } else {
+    res.json({ success: false, error: "Not authenticated" });
+  }
+});
 
 export default route;
