@@ -137,7 +137,7 @@ export default function finder() {
           cached_usernames.push(author);
         }
       } catch (e) {
-        console.error("API error", author, e);
+        ora(`API error adding ${author}`).fail();
       }
     }
   });
