@@ -88,13 +88,13 @@ route.post(
     const user: any = req.user;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.json({ errors: errors.array() });
     }
 
     const { userReported, reason } = req.body;
 
     const bot = await Bot.findOne({username: userReported});
-    if (!bot) return res.status(400).json({ error: "Invalid bot" });
+    if (!bot) return res.json({ error: "Invalid bot" });
 
     new Report({
       username: user.name,
