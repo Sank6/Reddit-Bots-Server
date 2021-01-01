@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 export interface IReport extends Document {
     username: string;
-    report: string;
+    reason: string;
     userReported: string;
     dateReported: Date;
 }
@@ -13,7 +13,7 @@ const ReportSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    report: {
+    reason: {
         type: String,
         required: true
     },

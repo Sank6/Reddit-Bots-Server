@@ -83,7 +83,7 @@ route.post(
   '/report',
   auth,
   body('userReported').isLength({max: 20, min: 1}),
-  body('report').isLength({max: 200, min: 1}),
+  body('reason').isLength({max: 200, min: 1}),
   async (req, res) => {
     const user: any = req.user;
     const errors = validationResult(req);
@@ -91,7 +91,7 @@ route.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { userReported, report } = req.body;
+    const { userReported, reason } = req.body;
 
     const bot = await Bot.findOne({username: userReported});
     if (!bot) return res.status(400).json({ error: "Invalid bot" });
@@ -99,7 +99,7 @@ route.post(
     new Report({
       username: user.name,
       userReported,
-      report
+      reason
     }).save()
     
     res.json({success: true})
