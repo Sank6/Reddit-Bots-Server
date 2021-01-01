@@ -105,7 +105,7 @@ export default function finder() {
     }
 
     // This part makes a API requests, so only continue if the score is significant
-    if (points > 30) {
+    if (points > 45) {
       try {
         // If the post's parent was posted less than 5 seconds before the post
         let parent;
@@ -126,7 +126,7 @@ export default function finder() {
         if (author_fetched.total_karma < 1000) points -= 20;
         else if (author_fetched.total_karma > 10000) points += 20;
         // Threshold to check if the user is a bot
-        if (points >= 60) {
+        if (points >= 70) {
           if (cached_usernames.includes(author)) return;
           cache.push({
             username: author,
