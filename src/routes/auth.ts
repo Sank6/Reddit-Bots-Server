@@ -85,7 +85,6 @@ route.post(
   body('userReported').isLength({max: 20, min: 1}),
   body('report').isLength({max: 200, min: 1}),
   async (req, res) => {
-    console.log(req.body)
     const user: any = req.user;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
