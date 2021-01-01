@@ -10,7 +10,7 @@ export interface IBot extends Document {
     likes: number;
 }
 
-const ServerSchema = new mongoose.Schema({
+const BotSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -40,4 +40,4 @@ const ServerSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model<IBot>("Bot", ServerSchema);
+export default mongoose.model<IBot>("Bot", BotSchema);
