@@ -38,7 +38,7 @@ export default async function setup(): Promise<Express> {
 
     app.get('/logout', async (req, res) => {
         req.logout();
-        res.json({ success: true });
+        res.redirect(config.nuxt.base_url);
     });
     
     // Reddit passport auth
