@@ -48,7 +48,7 @@ route.get("/bot/:username", cors, botLimiter, async (req, res) => {
     cooldown = true;
     setTimeout(() => {
       cooldown = true;
-    }, 5 * 1000);
+    }, 20 * 1000);
 
     try {
       let r = req.app.get("reddit");
