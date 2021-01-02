@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import * as config from "../config.json";
 
 import setup from "./router";
-import finder from './finder';
+import finder, {r}  from './finder';
 
 let logger = ora("Loading...").start();
 (async () => {
@@ -14,10 +14,11 @@ let logger = ora("Loading...").start();
     await mongoose.connect(config.server.mongodb_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useCreateIndex: true
+        useCreateIndex: true,
+        useFindAndModify: false
     });
     logger.succeed(`Connected to Mongoose database.`);
 
-    await setup();
     finder()
+    await setup(r);
 })();

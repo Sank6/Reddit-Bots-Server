@@ -7,7 +7,7 @@ import * as config from "../config.json";
 
 import router from "./routes/index";
 
-export default async function setup(): Promise<Express> {
+export default async function setup(r): Promise<Express> {
 
     const logger = ora("Loading express").start();
     const app = express();
@@ -15,6 +15,7 @@ export default async function setup(): Promise<Express> {
 
     app.disable('x-powered-by');
     app.set('trust proxy', true);
+    app.set('reddit', r); 
 
     app.use(session({
         secret: config.server.secret,

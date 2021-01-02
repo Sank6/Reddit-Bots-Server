@@ -6,8 +6,9 @@ export interface IBot extends Document {
     description: string;
     avatar: string;
     cakeDay: Date;
+    karma: Number,
     dateAdded: Date;
-    likes: number;
+    lastUpdated: Date;
 }
 
 const BotSchema = new mongoose.Schema({
@@ -28,14 +29,18 @@ const BotSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    karma: {
+        type: Number,
+        required: true
+    },
     dateAdded: {
         type: Date,
         default: Date.now(),
         required: true
     },
-    likes: {
-        type: Number,
-        default: 0,
+    lastUpdated: {
+        type: Date,
+        default: Date.now(),
         required: true
     }
 });

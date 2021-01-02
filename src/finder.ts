@@ -58,9 +58,9 @@ export default function finder() {
     // If the message claims to be a bot
     if (body.includes("i am a bot") || body.includes("i'm a bot")) points += 30;
 
-    
     // If the message claims to not be a bot
-    if (body.includes("not a bot") || body.includes("not automated")) points -= 60;
+    if (body.includes("not a bot") || body.includes("not automated"))
+      points -= 60;
 
     // If the body includes a report feature
     if (body.includes("[report")) points += 20;
@@ -125,14 +125,17 @@ export default function finder() {
         let author_fetched = await post.author.fetch();
         if (author_fetched.total_karma < 1000) points -= 20;
         else if (author_fetched.total_karma > 10000) points += 20;
+        console.log(author_fetched);
         // Threshold to check if the user is a bot
         if (points >= 70) {
           if (cached_usernames.includes(author)) return;
           cache.push({
             username: author,
             avatar: author_fetched.subreddit.display_name.icon_img,
-            description: author_fetched.subreddit.display_name.public_description,
+            description:
+              author_fetched.subreddit.display_name.public_description,
             cakeDay: new Date(author_fetched.created_utc * 1000),
+            karma: author_fetched.total_karma,
           });
           cached_usernames.push(author);
         }
@@ -143,12 +146,21 @@ export default function finder() {
   });
 
   setInterval(() => {
-    if(cache.length > 0) ora(`Added ${cache.length} users: ${cache.map(u => u.username).join(", ")}`).info();
-    Bot.insertMany(cache).catch(e => ora(e.message).fail());
+    if (cache.length > 0)
+      ora(
+        `Added ${cache.length} users: ${cache
+          .map((u) => u.username)
+          .join(", ")}`
+      ).info();
+    Bot.insertMany(cache).catch((e) => ora(e.message).fail());
     cache = [];
   }, 1000 * 30);
 
   (async () => {
-    cached_usernames = (await Bot.find({}).select('username -_id')).map(({username}) => username);
+    cached_usernames = (await Bot.find({}).select("username -_id")).map(
+      ({ username }) => username
+    );
   })();
 }
+
+export { r };
