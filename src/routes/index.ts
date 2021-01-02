@@ -47,7 +47,7 @@ route.get("/bot/:username", cors, botLimiter, async (req, res) => {
   if (!cooldown) {
     cooldown = true;
     setTimeout(() => {
-      cooldown = true;
+      cooldown = false;
     }, 20 * 1000);
 
     try {
