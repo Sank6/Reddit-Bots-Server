@@ -125,7 +125,6 @@ export default function finder() {
         let author_fetched = await post.author.fetch();
         if (author_fetched.total_karma < 1000) points -= 20;
         else if (author_fetched.total_karma > 10000) points += 20;
-        console.log(author_fetched);
         // Threshold to check if the user is a bot
         if (points >= 70) {
           if (cached_usernames.includes(author)) return;
