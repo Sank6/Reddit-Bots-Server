@@ -25,6 +25,7 @@ route.get("/", (_, res) => {
   res.status(200).send();
 });
 
+route.options("/list", cors)
 route.get("/list", cors, listLimiter, async (req, res) => {
   let page = parseInt(req.query.page as string) || 0;
   let bots = await Bot.aggregate([
@@ -36,6 +37,8 @@ route.get("/list", cors, listLimiter, async (req, res) => {
   res.json(bots);
 });
 
+
+route.options("/bot/:username", cors)
 let cooldown = false;
 route.get("/bot/:username", cors, botLimiter, async (req, res) => {
   let { username } = req.params;

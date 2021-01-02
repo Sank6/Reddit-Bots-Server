@@ -68,6 +68,7 @@ route.get("/auth/callback", (req, res, next) => {
   }
 });
 
+route.options("/auth/info", cors)
 route.get("/auth/info", cors, auth, (req, res) => {
   const user: any = req.user;
   res.json({
@@ -81,6 +82,7 @@ route.get("/auth/info", cors, auth, (req, res) => {
   });
 });
 
+route.options("/report", cors)
 route.post(
   "/report",
   cors,
