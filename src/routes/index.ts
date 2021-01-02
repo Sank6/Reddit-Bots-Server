@@ -50,27 +50,31 @@ route.get("/bot/:username", cors, botLimiter, async (req, res) => {
       cooldown = true;
     }, 5 * 1000);
 
-    let r = req.app.get("reddit");
-    let user = await r.getUser(username).fetch();
-    let bot = await Bot.findOneAndUpdate(
-      { username },
-      {
-        $set: {
-          avatar: user.subreddit.display_name.icon_img,
-          description: user.subreddit.display_name.public_description,
-          cakeDay: new Date(user.created_utc * 1000),
-          karma: user.total_karma,
-          lastUpdated: new Date(),
+    try {
+      let r = req.app.get("reddit");
+      let user = await r.getUser(username).fetch();
+      let botInfo = await Bot.findOneAndUpdate(
+        { username },
+        {
+          $set: {
+            avatar: user.subreddit.display_name.icon_img,
+            description: user.subreddit.display_name.public_description,
+            cakeDay: new Date(user.created_utc * 1000),
+            karma: user.total_karma,
+            lastUpdated: new Date(),
+          },
         },
-      },
-      {
-        fields: {
-          _id: false,
-          __v: false
-        },
-      }
-    );
-    return res.json(bot);
+        {
+          fields: {
+            _id: false,
+            __v: false
+          },
+        }
+      );
+      return res.json(botInfo);
+    } catch(e) {
+      return res.json(bot)
+    }
   } else {
     return res.json(bot);
   }
