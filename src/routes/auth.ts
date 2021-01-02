@@ -96,6 +96,9 @@ route.post(
     const bot = await Bot.findOne({username: userReported});
     if (!bot) return res.json({ error: "Invalid bot" });
 
+    const report = await Report.findOne({username: user.name, userReported});
+    if (report) return res.json({ error: "You have already reported this user." });
+
     new Report({
       username: user.name,
       userReported,
