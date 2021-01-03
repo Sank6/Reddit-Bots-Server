@@ -4,7 +4,7 @@
   "description": "A collection of reddit bots",
   "main": "src/index.ts",
   "scripts": {
-    "start": "node .out/src/index.js",
+    "start": "node ./out/src/index.js",
     "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s . -o ./out",
     "dev": "nodemon"
   },
